@@ -1,0 +1,10 @@
+[workspace]
+members = [
+    "day",
+    "hour",
+    "minute",
+    "month",
+    "second",
+    "weekday",
+]
+

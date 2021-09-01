@@ -1,0 +1,15 @@
+[package]
+name = "second"
+version = "0.0.0"
+authors = ["vkill <vkill.net@gmail.com>"]
+edition = "2018"
+description = "second"
+license = "Apache-2.0 OR MIT"
+repository = "https://github.com/bk-rs/date-time-rs"
+homepage = "https://github.com/bk-rs/date-time-rs"
+documentation = "https://docs.rs/second"
+keywords = []
+categories = []
+readme = "README.md"
+
+[dependencies]
