@@ -50,24 +50,25 @@ impl Weekday {
 }
 
 impl Weekday {
-    fn first() -> Self {
+    pub fn first() -> Self {
         Self::Mon
     }
-    fn last() -> Self {
+    pub fn last() -> Self {
         Self::Sun
     }
-    pub fn prev(&self) -> Option<Self> {
+
+    pub fn next(&self) -> Option<Self> {
         if self == &Self::last() {
             None
         } else {
-            Some(Self::try_from((self.to_owned() as u8) - 1).unwrap())
+            Some(Self::try_from((self.to_owned() as u8) + 1).unwrap())
         }
     }
-    pub fn next(&self) -> Option<Self> {
+    pub fn prev(&self) -> Option<Self> {
         if self == &Self::first() {
             None
         } else {
-            Some(Self::try_from((self.to_owned() as u8) + 1).unwrap())
+            Some(Self::try_from((self.to_owned() as u8) - 1).unwrap())
         }
     }
 }
