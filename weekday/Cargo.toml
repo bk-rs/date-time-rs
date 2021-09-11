@@ -12,5 +12,13 @@ keywords = []
 categories = []
 readme = "README.md"
 
+[package.metadata.docs.rs]
+all-features = true
+
+[features]
+default = [ "with-chrono" ]
+
+with-chrono = [ "chrono" ]
+
 [dependencies]
-chrono = { version = "0.4", default-features = false }
+chrono = { version = "0.4", default-features = false, optional = true }

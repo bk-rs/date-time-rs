@@ -1,9 +1,15 @@
 // https://en.wikipedia.org/wiki/ISO_8601#Week_dates
 
-use core::iter::{IntoIterator, Iterator};
+use core::convert::TryFrom;
 
-use chrono::Weekday as ChronoWeekday;
+#[cfg(feature = "with-chrono")]
+mod chrono;
 
+mod iter;
+pub use iter::WeekdayIterator;
+
+#[derive(PartialEq, Eq, Hash, PartialOrd, Ord, Debug, Clone)]
+#[repr(u8)]
 pub enum Weekday {
     Mon = 1,
     Tue = 2,
@@ -13,54 +19,55 @@ pub enum Weekday {
     Sat = 6,
     Sun = 7,
 }
+impl TryFrom<u8> for Weekday {
+    type Error = &'static str;
 
-#[derive(Default)]
-pub struct WeekdayIterator(Option<Weekday>);
-impl Iterator for WeekdayIterator {
-    type Item = Weekday;
-
-    fn next(&mut self) -> Option<Self::Item> {
-        unimplemented!()
-    }
-}
-impl DoubleEndedIterator for WeekdayIterator {
-    fn next_back(&mut self) -> Option<Self::Item> {
-        unimplemented!()
-    }
-}
-impl IntoIterator for Weekday {
-    type Item = Weekday;
-
-    type IntoIter = WeekdayIterator;
-
-    fn into_iter(self) -> Self::IntoIter {
-        WeekdayIterator::default()
-    }
-}
-
-impl From<ChronoWeekday> for Weekday {
-    fn from(w: ChronoWeekday) -> Self {
-        match w {
-            ChronoWeekday::Mon => Self::Mon,
-            ChronoWeekday::Tue => Self::Tue,
-            ChronoWeekday::Wed => Self::Wed,
-            ChronoWeekday::Thu => Self::Thu,
-            ChronoWeekday::Fri => Self::Fri,
-            ChronoWeekday::Sat => Self::Sat,
-            ChronoWeekday::Sun => Self::Sun,
+    fn try_from(v: u8) -> Result<Self, Self::Error> {
+        match v {
+            1 => Ok(Self::Mon),
+            2 => Ok(Self::Tue),
+            3 => Ok(Self::Wed),
+            4 => Ok(Self::Thu),
+            5 => Ok(Self::Fri),
+            6 => Ok(Self::Sat),
+            7 => Ok(Self::Sun),
+            _ => Err("unknown"),
         }
     }
 }
-impl From<Weekday> for ChronoWeekday {
-    fn from(w: Weekday) -> Self {
-        match w {
-            Weekday::Mon => Self::Mon,
-            Weekday::Tue => Self::Tue,
-            Weekday::Wed => Self::Wed,
-            Weekday::Thu => Self::Thu,
-            Weekday::Fri => Self::Fri,
-            Weekday::Sat => Self::Sat,
-            Weekday::Sun => Self::Sun,
+impl Weekday {
+    pub fn short_str(&self) -> &str {
+        match self {
+            Weekday::Mon => "Mon",
+            Weekday::Tue => "Tue",
+            Weekday::Wed => "Wed",
+            Weekday::Thu => "Thu",
+            Weekday::Fri => "Fri",
+            Weekday::Sat => "Sat",
+            Weekday::Sun => "Sun",
+        }
+    }
+}
+
+impl Weekday {
+    fn first() -> Self {
+        Self::Mon
+    }
+    fn last() -> Self {
+        Self::Sun
+    }
+    pub fn prev(&self) -> Option<Self> {
+        if self == &Self::last() {
+            None
+        } else {
+            Some(Self::try_from((self.to_owned() as u8) - 1).unwrap())
+        }
+    }
+    pub fn next(&self) -> Option<Self> {
+        if self == &Self::first() {
+            None
+        } else {
+            Some(Self::try_from((self.to_owned() as u8) + 1).unwrap())
         }
     }
 }
