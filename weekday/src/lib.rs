@@ -19,18 +19,23 @@ pub enum Weekday {
     Sat = 6,
     Sun = 7,
 }
+
+static LIST: &[Weekday] = &[
+    Weekday::Mon,
+    Weekday::Tue,
+    Weekday::Wed,
+    Weekday::Thu,
+    Weekday::Fri,
+    Weekday::Sat,
+    Weekday::Sun,
+];
+
 impl TryFrom<u8> for Weekday {
     type Error = &'static str;
 
     fn try_from(v: u8) -> Result<Self, Self::Error> {
         match v {
-            1 => Ok(Self::Mon),
-            2 => Ok(Self::Tue),
-            3 => Ok(Self::Wed),
-            4 => Ok(Self::Thu),
-            5 => Ok(Self::Fri),
-            6 => Ok(Self::Sat),
-            7 => Ok(Self::Sun),
+            1..=7 => Ok(LIST[(v - 1) as usize].to_owned()),
             _ => Err("unknown"),
         }
     }
