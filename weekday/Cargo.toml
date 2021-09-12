@@ -19,6 +19,11 @@ all-features = true
 default = [ "with-chrono" ]
 
 with-chrono = [ "chrono" ]
+with-num-traits = [ "num-traits" ]
 
 [dependencies]
 chrono = { version = "0.4", default-features = false, optional = true }
+num-traits = { version = "0.2", default-features = false, optional = true }
+
+[package.metadata.cargo-all-features]
+skip_optional_dependencies = true

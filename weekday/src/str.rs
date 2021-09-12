@@ -1,4 +1,6 @@
-// https://github.com/iamkun/dayjs/tree/dev/src/locale
+// TODO, https://github.com/iamkun/dayjs/tree/dev/src/locale
+
+use crate::Weekday;
 
 static EN_NAMES: &[&str] = &[
     "Monday",
@@ -11,8 +13,6 @@ static EN_NAMES: &[&str] = &[
 ];
 static EN_ABBREVIATIONS: &[&str] = &["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 static EN_MINIMAL_ABBREVIATIONS: &[&str] = &["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"];
-
-use crate::Weekday;
 
 impl Weekday {
     pub fn en_name(&self) -> &str {

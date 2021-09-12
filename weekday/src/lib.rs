@@ -4,6 +4,8 @@
 mod chrono;
 mod iter;
 mod num;
+#[cfg(feature = "with-num-traits")]
+mod num_traits;
 mod str;
 
 #[cfg(feature = "with-chrono")]
