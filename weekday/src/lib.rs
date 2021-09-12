@@ -1,14 +1,12 @@
 // https://en.wikipedia.org/wiki/ISO_8601#Week_dates
 
-use core::convert::TryFrom;
-
 #[cfg(feature = "with-chrono")]
 mod chrono;
-
 mod iter;
-pub use iter::WeekdayIterator;
-
+mod num;
 mod str;
+
+pub use iter::WeekdayIterator;
 
 #[derive(PartialEq, Eq, Hash, PartialOrd, Ord, Debug, Clone)]
 #[repr(u8)]
@@ -22,7 +20,7 @@ pub enum Weekday {
     Sun = 7,
 }
 
-static LIST: &[Weekday] = &[
+pub(crate) static WEEKDAYS: &[Weekday] = &[
     Weekday::Mon,
     Weekday::Tue,
     Weekday::Wed,
@@ -31,17 +29,6 @@ static LIST: &[Weekday] = &[
     Weekday::Sat,
     Weekday::Sun,
 ];
-
-impl TryFrom<u8> for Weekday {
-    type Error = &'static str;
-
-    fn try_from(v: u8) -> Result<Self, Self::Error> {
-        match v {
-            1..=7 => Ok(LIST[(v - 1) as usize].to_owned()),
-            _ => Err("unknown"),
-        }
-    }
-}
 
 impl Weekday {
     pub fn first() -> Self {
@@ -55,14 +42,14 @@ impl Weekday {
         if self == &Self::last() {
             None
         } else {
-            Some(Self::try_from((self.to_owned() as u8) + 1).unwrap())
+            Some(WEEKDAYS[(self.to_owned() as u8 + 1 - 1) as usize].to_owned())
         }
     }
     pub fn prev(&self) -> Option<Self> {
         if self == &Self::first() {
             None
         } else {
-            Some(Self::try_from((self.to_owned() as u8) - 1).unwrap())
+            Some(WEEKDAYS[(self.to_owned() as u8 - 1 - 1) as usize].to_owned())
         }
     }
 }

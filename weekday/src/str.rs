@@ -1,6 +1,6 @@
 // https://github.com/iamkun/dayjs/tree/dev/src/locale
 
-static EN_NAMES: &[&'static str] = &[
+static EN_NAMES: &[&str] = &[
     "Monday",
     "Tuesday",
     "Wednesday",
@@ -9,8 +9,8 @@ static EN_NAMES: &[&'static str] = &[
     "Saturday",
     "Sunday",
 ];
-static EN_ABBREVIATIONS: &[&'static str] = &["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-static EN_MINIMAL_ABBREVIATIONS: &[&'static str] = &["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"];
+static EN_ABBREVIATIONS: &[&str] = &["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+static EN_MINIMAL_ABBREVIATIONS: &[&str] = &["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"];
 
 use crate::Weekday;
 
