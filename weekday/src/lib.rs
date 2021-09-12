@@ -8,6 +8,8 @@ mod chrono;
 mod iter;
 pub use iter::WeekdayIterator;
 
+mod str;
+
 #[derive(PartialEq, Eq, Hash, PartialOrd, Ord, Debug, Clone)]
 #[repr(u8)]
 pub enum Weekday {
@@ -37,19 +39,6 @@ impl TryFrom<u8> for Weekday {
         match v {
             1..=7 => Ok(LIST[(v - 1) as usize].to_owned()),
             _ => Err("unknown"),
-        }
-    }
-}
-impl Weekday {
-    pub fn short_str(&self) -> &str {
-        match self {
-            Weekday::Mon => "Mon",
-            Weekday::Tue => "Tue",
-            Weekday::Wed => "Wed",
-            Weekday::Thu => "Thu",
-            Weekday::Fri => "Fri",
-            Weekday::Sat => "Sat",
-            Weekday::Sun => "Sun",
         }
     }
 }
