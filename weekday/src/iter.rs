@@ -84,6 +84,7 @@ mod tests {
             ]
         );
 
+        // https://doc.rust-lang.org/std/iter/trait.DoubleEndedIterator.html#examples
         let mut iter = WeekdayIterator::new();
         assert_eq!(iter.next(), Some(Weekday::Mon));
         assert_eq!(iter.next_back(), Some(Weekday::Sun));
