@@ -6,6 +6,8 @@ mod iter;
 mod num;
 mod str;
 
+#[cfg(feature = "with-chrono")]
+pub use self::chrono::CHRONO_WEEKDAYS;
 pub use iter::WeekdayIterator;
 
 #[derive(PartialEq, Eq, Hash, PartialOrd, Ord, Debug, Clone)]
@@ -20,7 +22,7 @@ pub enum Weekday {
     Sun = 7,
 }
 
-pub(crate) static WEEKDAYS: &[Weekday] = &[
+pub static WEEKDAYS: &[Weekday] = &[
     Weekday::Mon,
     Weekday::Tue,
     Weekday::Wed,

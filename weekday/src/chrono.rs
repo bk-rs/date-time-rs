@@ -4,6 +4,16 @@ use chrono::{
 
 use crate::Weekday;
 
+pub static CHRONO_WEEKDAYS: &[ChronoWeekday] = &[
+    ChronoWeekday::Mon,
+    ChronoWeekday::Tue,
+    ChronoWeekday::Wed,
+    ChronoWeekday::Thu,
+    ChronoWeekday::Fri,
+    ChronoWeekday::Sat,
+    ChronoWeekday::Sun,
+];
+
 impl From<ChronoWeekday> for Weekday {
     fn from(w: ChronoWeekday) -> Self {
         match w {
