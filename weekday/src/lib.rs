@@ -33,13 +33,15 @@ pub static WEEKDAYS: &[Weekday] = &[
     Weekday::Sat,
     Weekday::Sun,
 ];
+pub(crate) const WEEKDAY_N_MIN: u8 = 1;
+pub(crate) const WEEKDAY_N_MAX: u8 = 7;
 
 impl Weekday {
     pub fn first() -> Self {
-        Self::Mon
+        WEEKDAYS[(WEEKDAY_N_MIN - 1) as usize].to_owned()
     }
     pub fn last() -> Self {
-        Self::Sun
+        WEEKDAYS[(WEEKDAY_N_MAX - 1) as usize].to_owned()
     }
 
     pub fn next(&self) -> Option<Self> {
