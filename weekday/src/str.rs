@@ -69,7 +69,7 @@ mod tests {
         assert_eq!(Weekday::Mon.en_minimal_abbreviation(), "Mo");
 
         assert_eq!(Weekday::try_from("Mon").unwrap(), Weekday::Mon);
-        assert_eq!("Mon".parse::<Weekday>().unwrap(), Weekday::Mon);
+        assert_eq!("Monday".parse::<Weekday>().unwrap(), Weekday::Mon);
         assert_eq!(Weekday::Mon.to_string(), "Mon");
     }
 }
