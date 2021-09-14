@@ -20,7 +20,7 @@ impl FromStr for Weekday {
     type Err = &'static str;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        Self::from_en_abbreviation_or_en_name_or_en_minimal_abbreviation(s)
+        Self::from_en_str(s)
     }
 }
 impl TryFrom<&str> for Weekday {
@@ -32,7 +32,7 @@ impl TryFrom<&str> for Weekday {
 }
 impl fmt::Display for Weekday {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "{}", self.en_abbreviation())
+        write!(f, "{}", self.to_en_str())
     }
 }
 
@@ -47,9 +47,7 @@ impl Weekday {
         EN_MINIMAL_ABBREVIATIONS[(self.to_owned() as u8 - 1) as usize]
     }
 
-    pub fn from_en_abbreviation_or_en_name_or_en_minimal_abbreviation(
-        s: &str,
-    ) -> Result<Self, &'static str> {
+    pub fn from_en_str(s: &str) -> Result<Self, &'static str> {
         if let Some(i) = EN_ABBREVIATIONS.iter().position(|x| x == &s) {
             Ok(WEEKDAYS[i].to_owned())
         } else if let Some(i) = EN_NAMES.iter().position(|x| x == &s) {
@@ -59,6 +57,9 @@ impl Weekday {
         } else {
             Err("unknown")
         }
+    }
+    pub fn to_en_str(&self) -> &str {
+        self.en_abbreviation()
     }
 }
 
