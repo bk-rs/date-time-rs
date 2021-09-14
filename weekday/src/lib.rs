@@ -6,10 +6,14 @@ mod iter;
 mod num;
 #[cfg(feature = "with-num-traits")]
 mod num_traits;
+#[cfg(feature = "with-serde")]
+mod serde;
 mod str;
 
 #[cfg(feature = "with-chrono")]
 pub use self::chrono::CHRONO_WEEKDAYS;
+#[cfg(feature = "with-serde")]
+pub use self::serde::{serde_str, serde_u64};
 pub use iter::WeekdayIterator;
 
 #[derive(PartialEq, Eq, Hash, PartialOrd, Ord, Debug, Clone)]

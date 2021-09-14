@@ -20,7 +20,7 @@ impl FromStr for Weekday {
     type Err = &'static str;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        Self::from_en_abbreviation_or_en_name(s)
+        Self::from_en_abbreviation_or_en_name_or_en_minimal_abbreviation(s)
     }
 }
 impl TryFrom<&str> for Weekday {
@@ -47,10 +47,14 @@ impl Weekday {
         EN_MINIMAL_ABBREVIATIONS[(self.to_owned() as u8 - 1) as usize]
     }
 
-    pub fn from_en_abbreviation_or_en_name(s: &str) -> Result<Self, &'static str> {
+    pub fn from_en_abbreviation_or_en_name_or_en_minimal_abbreviation(
+        s: &str,
+    ) -> Result<Self, &'static str> {
         if let Some(i) = EN_ABBREVIATIONS.iter().position(|x| x == &s) {
             Ok(WEEKDAYS[i].to_owned())
         } else if let Some(i) = EN_NAMES.iter().position(|x| x == &s) {
+            Ok(WEEKDAYS[i].to_owned())
+        } else if let Some(i) = EN_MINIMAL_ABBREVIATIONS.iter().position(|x| x == &s) {
             Ok(WEEKDAYS[i].to_owned())
         } else {
             Err("unknown")
@@ -70,6 +74,8 @@ mod tests {
 
         assert_eq!(Weekday::try_from("Mon").unwrap(), Weekday::Mon);
         assert_eq!("Monday".parse::<Weekday>().unwrap(), Weekday::Mon);
+        assert_eq!("Mon".parse::<Weekday>().unwrap(), Weekday::Mon);
+        assert_eq!("Mo".parse::<Weekday>().unwrap(), Weekday::Mon);
         assert_eq!(Weekday::Mon.to_string(), "Mon");
     }
 }
