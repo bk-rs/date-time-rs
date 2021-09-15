@@ -25,9 +25,9 @@ impl DateRange {
     pub fn from_timestamp(
         since: i64,
         mut until: i64,
-        configuration: Option<DateRangeFromTimestampConfiguration>,
+        configuration: impl Into<Option<DateRangeFromTimestampConfiguration>>,
     ) -> Result<Self, Error> {
-        let configuration = configuration.unwrap_or_default();
+        let configuration = configuration.into().unwrap_or_default();
 
         if since > until {
             return Err(Error::SinceShouldLtUntil);
@@ -214,7 +214,7 @@ mod tests {
         let date_range = DateRange::from_timestamp(
             (now - Duration::days(7)).timestamp(),
             (now + Duration::days(3)).timestamp(),
-            Some(configuration),
+            configuration,
         )
         .unwrap();
         assert_eq!(
