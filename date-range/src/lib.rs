@@ -6,7 +6,7 @@ use chrono::{Duration, NaiveDate, NaiveDateTime, Utc};
 mod iter;
 pub use iter::DateRangeIterator;
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Copy, Clone)]
 pub struct DateRange {
     since_: NaiveDate,
     until_: NaiveDate,
@@ -92,7 +92,7 @@ impl DateRange {
     }
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Copy, Clone)]
 pub struct DateRangeFromTimestampConfiguration {
     pub now_gteq_until: bool,
     pub max_interval: Duration,
@@ -114,7 +114,7 @@ impl DateRangeFromTimestampConfiguration {
 //
 //
 //
-#[derive(Debug, Clone)]
+#[derive(Debug, Copy, Clone)]
 pub struct DateTimeRange {
     since_: NaiveDateTime,
     until_: NaiveDateTime,

@@ -14,7 +14,7 @@ pub use self::chrono::CHRONO_WEEKDAYS;
 pub use self::serde::{serde_str, serde_u64};
 pub use iter::WeekdayIterator;
 
-#[derive(PartialEq, Eq, Hash, PartialOrd, Ord, Debug, Clone)]
+#[derive(PartialEq, Eq, Hash, PartialOrd, Ord, Debug, Copy, Clone)]
 #[repr(u8)]
 pub enum Weekday {
     Mon = 1,

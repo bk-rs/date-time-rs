@@ -7,7 +7,7 @@ use chrono::{Duration, NaiveDate};
 
 use crate::DateRange;
 
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Copy, Clone, PartialEq)]
 pub struct DateRangeIterator {
     since: NaiveDate,
     until: NaiveDate,
