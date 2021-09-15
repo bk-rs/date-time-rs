@@ -60,7 +60,7 @@ impl<'de> Deserialize<'de> for Weekday {
     where
         D: Deserializer<'de>,
     {
-        deserializer.deserialize_str(WeekdayVisitor)
+        deserializer.deserialize_any(WeekdayVisitor)
     }
 }
 
@@ -117,6 +117,17 @@ mod tests {
     #[test]
     fn de() {
         let json = r#"{ "w1": "Monday", "w2": 2, "w3": 3, "w4": "Thu" }"#;
+        assert_eq!(
+            serde_json::from_str::<Foo>(json).unwrap(),
+            Foo {
+                w1: Weekday::Mon,
+                w2: Weekday::Tue,
+                w3: Weekday::Wed,
+                w4: Weekday::Thu,
+            }
+        );
+
+        let json = r#"{ "w1": "Monday", "w2": 2, "w3": 3, "w4": 4 }"#;
         assert_eq!(
             serde_json::from_str::<Foo>(json).unwrap(),
             Foo {
