@@ -43,8 +43,8 @@ impl IntoIterator for DateRange {
 
     fn into_iter(self) -> Self::IntoIter {
         DateRangeIterator {
-            since: self.since,
-            until: self.until,
+            since: self.since().to_owned(),
+            until: self.until().to_owned(),
         }
     }
 }
@@ -55,8 +55,8 @@ impl IntoIterator for &DateRange {
 
     fn into_iter(self) -> Self::IntoIter {
         DateRangeIterator {
-            since: self.since.to_owned(),
-            until: self.until.to_owned(),
+            since: self.since().to_owned(),
+            until: self.until().to_owned(),
         }
     }
 }
@@ -65,10 +65,12 @@ impl IntoIterator for &DateRange {
 mod tests {
     use super::*;
 
+    use std::error;
+
     #[test]
-    fn simple() {
+    fn simple() -> Result<(), Box<dyn error::Error>> {
         assert_eq!(
-            DateRange::new("2021-08-01".parse().unwrap(), "2021-08-05".parse().unwrap())
+            DateRange::new("2021-08-01".parse().unwrap(), "2021-08-05".parse().unwrap())?
                 .into_iter()
                 .collect::<Vec<_>>(),
             vec![
@@ -81,7 +83,7 @@ mod tests {
         );
 
         let date_range =
-            &DateRange::new("2021-08-01".parse().unwrap(), "2021-08-05".parse().unwrap());
+            &DateRange::new("2021-08-01".parse().unwrap(), "2021-08-05".parse().unwrap())?;
         assert_eq!(
             date_range.into_iter().rev().collect::<Vec<_>>(),
             vec![
@@ -107,5 +109,7 @@ mod tests {
         assert_eq!(iter.next_back(), None);
         assert_eq!(iter.since, "2021-08-04".parse().unwrap());
         assert_eq!(iter.until, "2021-08-03".parse().unwrap());
+
+        Ok(())
     }
 }
