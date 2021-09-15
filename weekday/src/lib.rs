@@ -1,5 +1,3 @@
-// https://en.wikipedia.org/wiki/ISO_8601#Week_dates
-
 #[cfg(feature = "with-chrono")]
 mod chrono;
 mod iter;
