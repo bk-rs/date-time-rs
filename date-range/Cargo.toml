@@ -13,4 +13,4 @@ categories = []
 readme = "README.md"
 
 [dependencies]
-chrono = { version = "0.4", default-features = false }
+chrono = { version = "0.4", default-features = false, features = ["clock"] }
