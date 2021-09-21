@@ -51,7 +51,14 @@ impl Month {
     }
 
     pub fn from_en_str(s: &str) -> Result<Self, &'static str> {
-        if let Some(i) = EN_ABBREVIATIONS.iter().position(|x| x == &s) {
+        if let Some(i) = EN_ABBREVIATIONS.iter().position(|x| {
+            x == &s
+                || if x == &"May" {
+                    false
+                } else {
+                    format!("{}.", x) == s
+                }
+        }) {
             Ok(MONTHS[i].to_owned())
         } else if let Some(i) = EN_NAMES.iter().position(|x| x == &s) {
             Ok(MONTHS[i].to_owned())
@@ -76,6 +83,8 @@ mod tests {
         assert_eq!(Month::try_from("Jan").unwrap(), Month::Jan);
         assert_eq!("January".parse::<Month>().unwrap(), Month::Jan);
         assert_eq!("Jan".parse::<Month>().unwrap(), Month::Jan);
+        assert_eq!("Jan.".parse::<Month>().unwrap(), Month::Jan);
+        assert_eq!("May.".parse::<Month>().err().unwrap(), "unknown");
         assert_eq!(Month::Jan.to_string(), "Jan");
     }
 }

@@ -48,11 +48,17 @@ impl Weekday {
     }
 
     pub fn from_en_str(s: &str) -> Result<Self, &'static str> {
-        if let Some(i) = EN_ABBREVIATIONS.iter().position(|x| x == &s) {
+        if let Some(i) = EN_ABBREVIATIONS
+            .iter()
+            .position(|x| x == &s || format!("{}.", x) == s)
+        {
             Ok(WEEKDAYS[i].to_owned())
         } else if let Some(i) = EN_NAMES.iter().position(|x| x == &s) {
             Ok(WEEKDAYS[i].to_owned())
-        } else if let Some(i) = EN_MINIMAL_ABBREVIATIONS.iter().position(|x| x == &s) {
+        } else if let Some(i) = EN_MINIMAL_ABBREVIATIONS
+            .iter()
+            .position(|x| x == &s || format!("{}.", x) == s)
+        {
             Ok(WEEKDAYS[i].to_owned())
         } else {
             Err("unknown")
@@ -76,7 +82,9 @@ mod tests {
         assert_eq!(Weekday::try_from("Mon").unwrap(), Weekday::Mon);
         assert_eq!("Monday".parse::<Weekday>().unwrap(), Weekday::Mon);
         assert_eq!("Mon".parse::<Weekday>().unwrap(), Weekday::Mon);
+        assert_eq!("Mon.".parse::<Weekday>().unwrap(), Weekday::Mon);
         assert_eq!("Mo".parse::<Weekday>().unwrap(), Weekday::Mon);
+        assert_eq!("Mo.".parse::<Weekday>().unwrap(), Weekday::Mon);
         assert_eq!(Weekday::Mon.to_string(), "Mon");
     }
 }
