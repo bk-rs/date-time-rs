@@ -5,49 +5,49 @@ use serde::{
     Deserialize, Deserializer, Serialize, Serializer,
 };
 
-use crate::Weekday;
+use crate::Month;
 
 pub mod serde_str {
     use serde::{Deserializer, Serializer};
 
-    use super::{Weekday, WeekdayVisitor};
+    use super::{Month, MonthVisitor};
 
-    pub fn serialize<S>(weekday: &Weekday, serializer: S) -> Result<S::Ok, S::Error>
+    pub fn serialize<S>(month: &Month, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: Serializer,
     {
-        serializer.serialize_str(weekday.to_string().as_str())
+        serializer.serialize_str(month.to_string().as_str())
     }
 
-    pub fn deserialize<'de, D>(deserializer: D) -> Result<Weekday, D::Error>
+    pub fn deserialize<'de, D>(deserializer: D) -> Result<Month, D::Error>
     where
         D: Deserializer<'de>,
     {
-        deserializer.deserialize_str(WeekdayVisitor)
+        deserializer.deserialize_str(MonthVisitor)
     }
 }
 
 pub mod serde_u64 {
     use serde::{Deserializer, Serializer};
 
-    use super::{Weekday, WeekdayVisitor};
+    use super::{Month, MonthVisitor};
 
-    pub fn serialize<S>(weekday: &Weekday, serializer: S) -> Result<S::Ok, S::Error>
+    pub fn serialize<S>(month: &Month, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: Serializer,
     {
-        serializer.serialize_u64(weekday.to_owned() as u64)
+        serializer.serialize_u64(month.to_owned() as u64)
     }
 
-    pub fn deserialize<'de, D>(deserializer: D) -> Result<Weekday, D::Error>
+    pub fn deserialize<'de, D>(deserializer: D) -> Result<Month, D::Error>
     where
         D: Deserializer<'de>,
     {
-        deserializer.deserialize_u64(WeekdayVisitor)
+        deserializer.deserialize_u64(MonthVisitor)
     }
 }
 
-impl Serialize for Weekday {
+impl Serialize for Month {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: Serializer,
@@ -55,18 +55,18 @@ impl Serialize for Weekday {
         serializer.serialize_str(self.to_string().as_str())
     }
 }
-impl<'de> Deserialize<'de> for Weekday {
+impl<'de> Deserialize<'de> for Month {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: Deserializer<'de>,
     {
-        deserializer.deserialize_any(WeekdayVisitor)
+        deserializer.deserialize_any(MonthVisitor)
     }
 }
 
-struct WeekdayVisitor;
-impl<'de> Visitor<'de> for WeekdayVisitor {
-    type Value = Weekday;
+struct MonthVisitor;
+impl<'de> Visitor<'de> for MonthVisitor {
+    type Value = Month;
 
     fn expecting(&self, formatter: &mut fmt::Formatter) -> fmt::Result {
         formatter.write_str("str or u8")
@@ -103,38 +103,38 @@ mod tests {
     #[derive(Deserialize, Serialize, PartialEq, Debug)]
     struct Foo {
         #[serde(with = "crate::serde_str")]
-        w1: Weekday,
+        m1: Month,
         #[serde(with = "crate::serde_u64")]
-        w2: Weekday,
+        m2: Month,
         #[serde(
             serialize_with = "crate::serde_str::serialize",
             deserialize_with = "crate::serde_u64::deserialize"
         )]
-        w3: Weekday,
-        w4: Weekday,
+        m3: Month,
+        m4: Month,
     }
 
     #[test]
     fn de() {
-        let json = r#"{ "w1": "Monday", "w2": 2, "w3": 3, "w4": "Thu" }"#;
+        let json = r#"{ "m1": "January", "m2": 2, "m3": 3, "m4": "Apr" }"#;
         assert_eq!(
             serde_json::from_str::<Foo>(json).unwrap(),
             Foo {
-                w1: Weekday::Mon,
-                w2: Weekday::Tue,
-                w3: Weekday::Wed,
-                w4: Weekday::Thu,
+                m1: Month::Jan,
+                m2: Month::Feb,
+                m3: Month::Mar,
+                m4: Month::Apr,
             }
         );
 
-        let json = r#"{ "w1": "Monday", "w2": 2, "w3": 3, "w4": 4 }"#;
+        let json = r#"{ "m1": "January", "m2": 2, "m3": 3, "m4": 4 }"#;
         assert_eq!(
             serde_json::from_str::<Foo>(json).unwrap(),
             Foo {
-                w1: Weekday::Mon,
-                w2: Weekday::Tue,
-                w3: Weekday::Wed,
-                w4: Weekday::Thu,
+                m1: Month::Jan,
+                m2: Month::Feb,
+                m3: Month::Mar,
+                m4: Month::Apr,
             }
         );
     }
@@ -143,14 +143,14 @@ mod tests {
     fn ser() {
         assert_eq!(
             serde_json::to_value(&Foo {
-                w1: Weekday::Mon,
-                w2: Weekday::Tue,
-                w3: Weekday::Wed,
-                w4: Weekday::Thu,
+                m1: Month::Jan,
+                m2: Month::Feb,
+                m3: Month::Mar,
+                m4: Month::Apr,
             })
             .unwrap(),
             json!({
-                "w1": "Mon", "w2": 2, "w3": "Wed", "w4": "Thu"
+                "m1": "Jan", "m2": 2, "m3": "Mar", "m4": "Apr"
             })
         );
     }
