@@ -1,6 +1,7 @@
 [workspace]
 members = [
     "date-range",
+    "date-time-matrix",
     "day",
     "hour",
     "minute",
