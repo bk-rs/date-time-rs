@@ -11,7 +11,7 @@ pub struct WeekdayAndHour(pub Weekday, pub Hour);
 #[cfg(feature = "with-chrono")]
 impl From<NaiveDateTime> for WeekdayAndHour {
     fn from(dt: NaiveDateTime) -> Self {
-        Self(Weekday::from(dt.clone()), Hour::from(dt))
+        Self(Weekday::from(dt), Hour::from(dt))
     }
 }
 
