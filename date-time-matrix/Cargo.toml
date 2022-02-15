@@ -1,6 +1,6 @@
 [package]
 name = "date-time-matrix"
-version = "0.1.2"
+version = "0.1.3"
 authors = ["vkill <vkill.net@gmail.com>"]
 edition = "2021"
 description = "Date Time Matrix"
