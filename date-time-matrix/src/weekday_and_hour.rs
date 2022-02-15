@@ -5,6 +5,7 @@ use chrono::{DateTime, NaiveDateTime, TimeZone};
 use hour::Hour;
 use weekday::Weekday;
 
+//
 #[derive(PartialEq, Eq, Hash, PartialOrd, Ord, Debug, Copy, Clone)]
 pub struct WeekdayAndHour(pub Weekday, pub Hour);
 
@@ -22,6 +23,7 @@ impl<Tz: TimeZone> From<DateTime<Tz>> for WeekdayAndHour {
     }
 }
 
+//
 #[derive(Debug, Clone, Default)]
 pub struct WeekdayAndHourIterator {
     curr: Option<WeekdayAndHour>,
@@ -45,7 +47,38 @@ impl Iterator for WeekdayAndHourIterator {
                     None => w.next().map(|w| WeekdayAndHour(w, Hour::C0)),
                 }
             }
-            None => Some(WeekdayAndHour(Weekday::Mon, Hour::C0)),
+            None => Some(WeekdayAndHour(Weekday::first(), Hour::C0)),
+        };
+        self.curr = new.to_owned();
+        new
+    }
+}
+
+//
+#[derive(Debug, Clone, Default)]
+pub struct WeekdayFromSundayAndHourIterator {
+    curr: Option<WeekdayAndHour>,
+}
+
+impl WeekdayFromSundayAndHourIterator {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
+
+impl Iterator for WeekdayFromSundayAndHourIterator {
+    type Item = WeekdayAndHour;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        let new = match &self.curr {
+            Some(v) => {
+                let WeekdayAndHour(w, h) = v;
+                match h.next() {
+                    Some(h) => Some(WeekdayAndHour(w.to_owned(), h)),
+                    None => w.next_from_sunday().map(|w| WeekdayAndHour(w, Hour::C0)),
+                }
+            }
+            None => Some(WeekdayAndHour(Weekday::first_from_sunday(), Hour::C0)),
         };
         self.curr = new.to_owned();
         new
@@ -55,11 +88,6 @@ impl Iterator for WeekdayAndHourIterator {
 #[cfg(test)]
 mod tests {
     use super::*;
-
-    #[test]
-    fn test_iter() {
-        assert_eq!(WeekdayAndHourIterator::new().into_iter().count(), 7 * 24);
-    }
 
     #[cfg(feature = "with-chrono")]
     #[test]
@@ -74,6 +102,29 @@ mod tests {
         assert_eq!(
             WeekdayAndHour::from("2021-08-01T00:00:00Z".parse::<DateTime<Utc>>().unwrap()),
             WeekdayAndHour(Weekday::Sun, Hour::C0)
+        );
+    }
+
+    #[test]
+    fn test_iter() {
+        assert_eq!(WeekdayAndHourIterator::new().into_iter().count(), 7 * 24);
+
+        assert_eq!(
+            WeekdayAndHourIterator::new().next(),
+            Some(WeekdayAndHour(Weekday::Mon, Hour::C0))
+        );
+    }
+
+    #[test]
+    fn test_from_sunday_iter() {
+        assert_eq!(
+            WeekdayFromSundayAndHourIterator::new().into_iter().count(),
+            7 * 24
+        );
+
+        assert_eq!(
+            WeekdayFromSundayAndHourIterator::new().next(),
+            Some(WeekdayAndHour(Weekday::Sun, Hour::C0))
         );
     }
 }
