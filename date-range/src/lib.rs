@@ -6,11 +6,21 @@ use chrono::{Duration, NaiveDate, NaiveDateTime, Utc};
 mod iter;
 pub use iter::DateRangeIterator;
 
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
 pub struct DateRange {
     since_: NaiveDate,
     until_: NaiveDate,
 }
+
+impl Default for DateRange {
+    fn default() -> Self {
+        Self {
+            since_: NaiveDate::from_ymd(1970, 1, 1),
+            until_: NaiveDate::from_ymd(1970, 1, 1),
+        }
+    }
+}
+
 impl DateRange {
     pub fn new(since: NaiveDate, until: NaiveDate) -> Result<Self, Error> {
         if since > until {
@@ -174,6 +184,14 @@ mod tests {
     use super::*;
 
     use std::error;
+
+    #[test]
+    fn test_date_range_default() {
+        assert_eq!(
+            DateRange::default(),
+            DateRange::new("1970-01-01".parse().unwrap(), "1970-01-01".parse().unwrap()).unwrap()
+        )
+    }
 
     #[test]
     fn test_date_range_new() -> Result<(), Box<dyn error::Error>> {
