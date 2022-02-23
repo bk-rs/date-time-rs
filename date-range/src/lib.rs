@@ -100,6 +100,11 @@ impl DateRange {
             until_: next_since + len,
         }
     }
+
+    //
+    pub fn num_days(&self) -> usize {
+        (self.until() - self.since()).num_days() as usize
+    }
 }
 
 #[derive(Debug, Copy, Clone)]
@@ -288,5 +293,22 @@ mod tests {
         let next_date_range = date_range.next();
         assert_eq!(next_date_range.since(), "2021-08-16".parse().unwrap());
         assert_eq!(next_date_range.until(), "2021-08-22".parse().unwrap());
+    }
+
+    #[test]
+    fn test_date_range_num_days() {
+        let date_range =
+            DateRange::new("2022-02-23".parse().unwrap(), "2022-02-23".parse().unwrap()).unwrap();
+        assert_eq!(date_range.num_days(), 0);
+
+        let date_range =
+            DateRange::new("2022-02-21".parse().unwrap(), "2022-02-23".parse().unwrap()).unwrap();
+        assert_eq!(date_range.num_days(), 2);
+
+        let now = Utc::now();
+        let date_range =
+            DateRange::from_timestamp((now - Duration::days(7)).timestamp(), now.timestamp(), None)
+                .unwrap();
+        assert_eq!(date_range.num_days(), 7);
     }
 }
