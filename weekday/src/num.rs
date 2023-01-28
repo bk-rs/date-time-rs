@@ -1,7 +1,6 @@
-use core::convert::TryFrom;
-
 use crate::{Weekday, WEEKDAYS, WEEKDAY_N_MAX, WEEKDAY_N_MIN};
 
+//
 impl TryFrom<u8> for Weekday {
     type Error = &'static str;
 

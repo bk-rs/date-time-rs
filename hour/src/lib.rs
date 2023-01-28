@@ -8,6 +8,7 @@ mod str;
 
 pub use iter::HourIterator;
 
+//
 #[derive(PartialEq, Eq, Hash, PartialOrd, Ord, Debug, Copy, Clone)]
 #[repr(u8)]
 pub enum Hour {

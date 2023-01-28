@@ -1,5 +1,3 @@
-use core::{convert::TryFrom as _, fmt};
-
 use serde::{
     de::{self, Visitor},
     Deserialize, Deserializer, Serialize, Serializer,
@@ -7,6 +5,7 @@ use serde::{
 
 use crate::Month;
 
+//
 pub mod serde_str {
     use serde::{Deserializer, Serializer};
 
@@ -68,7 +67,7 @@ struct MonthVisitor;
 impl<'de> Visitor<'de> for MonthVisitor {
     type Value = Month;
 
-    fn expecting(&self, formatter: &mut fmt::Formatter) -> fmt::Result {
+    fn expecting(&self, formatter: &mut core::fmt::Formatter) -> core::fmt::Result {
         formatter.write_str("str or u8")
     }
 

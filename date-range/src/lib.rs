@@ -1,11 +1,9 @@
-use core::fmt;
-use std::error;
-
 use chrono::{Duration, NaiveDate, NaiveDateTime, Utc};
 
 mod iter;
 pub use iter::DateRangeIterator;
 
+//
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
 pub struct DateRange {
     since_: NaiveDate,
@@ -177,18 +175,16 @@ impl From<DateRange> for DateTimeRange {
 pub enum Error {
     SinceShouldLtUntil,
 }
-impl fmt::Display for Error {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+impl core::fmt::Display for Error {
+    fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
         write!(f, "{self:?}")
     }
 }
-impl error::Error for Error {}
+impl std::error::Error for Error {}
 
 #[cfg(test)]
 mod tests {
     use super::*;
-
-    use std::error;
 
     #[test]
     fn test_date_range_default() {
@@ -199,7 +195,7 @@ mod tests {
     }
 
     #[test]
-    fn test_date_range_new() -> Result<(), Box<dyn error::Error>> {
+    fn test_date_range_new() -> Result<(), Box<dyn std::error::Error>> {
         match DateRange::new("2021-08-02".parse().unwrap(), "2021-08-02".parse().unwrap()) {
             Ok(_) => {}
             Err(err) => {

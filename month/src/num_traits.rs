@@ -1,10 +1,12 @@
 use crate::{Month, MONTHS, MONTH_N_MAX, MONTH_N_MIN};
 
+//
 const MONTH_N_MIN_I64: i64 = MONTH_N_MIN as i64;
 const MONTH_N_MAX_I64: i64 = MONTH_N_MAX as i64;
 const MONTH_N_MIN_U64: u64 = MONTH_N_MIN as u64;
 const MONTH_N_MAX_U64: u64 = MONTH_N_MAX as u64;
 
+//
 impl num_traits::FromPrimitive for Month {
     #[inline]
     fn from_i64(n: i64) -> Option<Month> {

@@ -1,13 +1,13 @@
-use core::fmt;
-
 use crate::Hour;
 
-impl fmt::Display for Hour {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+//
+impl core::fmt::Display for Hour {
+    fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
         write!(f, "{}", self.to_en_str())
     }
 }
 
+//
 impl Hour {
     pub fn en_name(&self) -> &str {
         match self {

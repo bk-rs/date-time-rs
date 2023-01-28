@@ -1,9 +1,8 @@
-use core::convert::TryFrom as _;
-
 use chrono::{DateTime, Datelike as _, Month as ChronoMonth, NaiveDate, NaiveDateTime, TimeZone};
 
 use crate::Month;
 
+//
 pub static CHRONO_MONTHS: &[ChronoMonth] = &[
     ChronoMonth::January,
     ChronoMonth::February,
@@ -19,6 +18,7 @@ pub static CHRONO_MONTHS: &[ChronoMonth] = &[
     ChronoMonth::December,
 ];
 
+//
 impl From<ChronoMonth> for Month {
     fn from(w: ChronoMonth) -> Self {
         match w {

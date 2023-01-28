@@ -1,9 +1,10 @@
 // TODO, https://github.com/iamkun/dayjs/tree/dev/src/locale
 
-use core::{convert::TryFrom, fmt, str::FromStr};
+use core::str::FromStr;
 
 use crate::{Month, MONTHS};
 
+//
 static EN_NAMES: &[&str] = &[
     "January",
     "February",
@@ -22,6 +23,7 @@ static EN_ABBREVIATIONS: &[&str] = &[
     "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
 ];
 
+//
 impl FromStr for Month {
     type Err = &'static str;
 
@@ -36,8 +38,8 @@ impl TryFrom<&str> for Month {
         s.parse()
     }
 }
-impl fmt::Display for Month {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+impl core::fmt::Display for Month {
+    fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
         write!(f, "{}", self.to_en_str())
     }
 }

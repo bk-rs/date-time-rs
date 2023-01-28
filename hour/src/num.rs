@@ -1,7 +1,6 @@
-use core::convert::TryFrom;
-
 use crate::{Hour, HOURS, HOUR_N_MAX, HOUR_N_MIN};
 
+//
 impl TryFrom<u8> for Hour {
     type Error = &'static str;
 

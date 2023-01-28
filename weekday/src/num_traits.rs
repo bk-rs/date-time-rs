@@ -1,10 +1,12 @@
 use crate::{Weekday, WEEKDAYS, WEEKDAY_N_MAX, WEEKDAY_N_MIN};
 
+//
 const WEEKDAY_N_MIN_I64: i64 = WEEKDAY_N_MIN as i64;
 const WEEKDAY_N_MAX_I64: i64 = WEEKDAY_N_MAX as i64;
 const WEEKDAY_N_MIN_U64: u64 = WEEKDAY_N_MIN as u64;
 const WEEKDAY_N_MAX_U64: u64 = WEEKDAY_N_MAX as u64;
 
+//
 impl num_traits::FromPrimitive for Weekday {
     #[inline]
     fn from_i64(n: i64) -> Option<Weekday> {

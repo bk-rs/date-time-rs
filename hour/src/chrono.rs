@@ -2,6 +2,7 @@ use chrono::{DateTime, NaiveDateTime, TimeZone, Timelike as _};
 
 use crate::Hour;
 
+//
 impl From<NaiveDateTime> for Hour {
     fn from(dt: NaiveDateTime) -> Self {
         Self::try_from(dt.hour() as u8).unwrap()

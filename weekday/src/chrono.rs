@@ -4,6 +4,7 @@ use chrono::{
 
 use crate::Weekday;
 
+//
 pub static CHRONO_WEEKDAYS: &[ChronoWeekday] = &[
     ChronoWeekday::Mon,
     ChronoWeekday::Tue,

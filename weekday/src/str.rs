@@ -1,9 +1,10 @@
 // TODO, https://github.com/iamkun/dayjs/tree/dev/src/locale
 
-use core::{convert::TryFrom, fmt, str::FromStr};
+use core::str::FromStr;
 
 use crate::{Weekday, WEEKDAYS};
 
+//
 static EN_NAMES: &[&str] = &[
     "Monday",
     "Tuesday",
@@ -16,6 +17,7 @@ static EN_NAMES: &[&str] = &[
 static EN_ABBREVIATIONS: &[&str] = &["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 static EN_MINIMAL_ABBREVIATIONS: &[&str] = &["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"];
 
+//
 impl FromStr for Weekday {
     type Err = &'static str;
 
@@ -30,8 +32,8 @@ impl TryFrom<&str> for Weekday {
         s.parse()
     }
 }
-impl fmt::Display for Weekday {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+impl core::fmt::Display for Weekday {
+    fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
         write!(f, "{}", self.to_en_str())
     }
 }
