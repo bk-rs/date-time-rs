@@ -59,7 +59,7 @@ mod tests {
     #[test]
     fn simple() {
         assert_eq!(
-            MonthIterator::new().into_iter().collect::<Vec<_>>(),
+            MonthIterator::new().collect::<Vec<_>>(),
             vec![
                 Month::Jan,
                 Month::Feb,
@@ -77,7 +77,7 @@ mod tests {
         );
 
         assert_eq!(
-            MonthIterator::new().into_iter().rev().collect::<Vec<_>>(),
+            MonthIterator::new().rev().collect::<Vec<_>>(),
             vec![
                 Month::Dec,
                 Month::Nov,

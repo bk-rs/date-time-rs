@@ -1,8 +1,6 @@
 use core::convert::TryFrom as _;
 
-use chrono::{
-    Date, DateTime, Datelike as _, Month as ChronoMonth, NaiveDate, NaiveDateTime, TimeZone,
-};
+use chrono::{DateTime, Datelike as _, Month as ChronoMonth, NaiveDate, NaiveDateTime, TimeZone};
 
 use crate::Month;
 
@@ -47,11 +45,6 @@ impl From<NaiveDate> for Month {
 impl From<NaiveDateTime> for Month {
     fn from(dt: NaiveDateTime) -> Self {
         Self::try_from(dt.month() as u8).unwrap()
-    }
-}
-impl<Tz: TimeZone> From<Date<Tz>> for Month {
-    fn from(d: Date<Tz>) -> Self {
-        Self::try_from(d.month() as u8).unwrap()
     }
 }
 impl<Tz: TimeZone> From<DateTime<Tz>> for Month {
@@ -100,7 +93,7 @@ mod tests {
                 "2021-08-01T00:00:00Z"
                     .parse::<DateTime<Utc>>()
                     .unwrap()
-                    .date()
+                    .date_naive()
             ),
             Month::Aug
         );

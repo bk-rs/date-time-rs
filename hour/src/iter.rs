@@ -59,7 +59,7 @@ mod tests {
     #[test]
     fn simple() {
         assert_eq!(
-            HourIterator::new().into_iter().collect::<Vec<_>>(),
+            HourIterator::new().collect::<Vec<_>>(),
             vec![
                 Hour::C0,
                 Hour::C1,
@@ -89,7 +89,7 @@ mod tests {
         );
 
         assert_eq!(
-            HourIterator::new().into_iter().rev().collect::<Vec<_>>(),
+            HourIterator::new().rev().collect::<Vec<_>>(),
             vec![
                 Hour::C23,
                 Hour::C22,

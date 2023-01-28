@@ -15,8 +15,8 @@ pub struct DateRange {
 impl Default for DateRange {
     fn default() -> Self {
         Self {
-            since_: NaiveDate::from_ymd(1970, 1, 1),
-            until_: NaiveDate::from_ymd(1970, 1, 1),
+            since_: NaiveDate::from_ymd_opt(1970, 1, 1).expect(""),
+            until_: NaiveDate::from_ymd_opt(1970, 1, 1).expect(""),
         }
     }
 }
@@ -54,8 +54,8 @@ impl DateRange {
             }
         }
 
-        let since = NaiveDateTime::from_timestamp(since, 0);
-        let until = NaiveDateTime::from_timestamp(until, 0);
+        let since = NaiveDateTime::from_timestamp_opt(since, 0).expect("");
+        let until = NaiveDateTime::from_timestamp_opt(until, 0).expect("");
 
         let mut since = since.date();
         let until = until.date();
@@ -78,10 +78,10 @@ impl DateRange {
     }
 
     pub fn since_datetime(&self) -> NaiveDateTime {
-        self.since().and_hms(0, 0, 0)
+        self.since().and_hms_opt(0, 0, 0).expect("")
     }
     pub fn until_datetime(&self) -> NaiveDateTime {
-        self.until().and_hms(23, 59, 59)
+        self.until().and_hms_opt(23, 59, 59).expect("")
     }
 
     pub fn prev(&self) -> Self {
@@ -179,7 +179,7 @@ pub enum Error {
 }
 impl fmt::Display for Error {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "{:?}", self)
+        write!(f, "{self:?}")
     }
 }
 impl error::Error for Error {}

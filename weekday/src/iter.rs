@@ -111,7 +111,7 @@ mod tests {
     #[test]
     fn test_weekday_iterator() {
         assert_eq!(
-            WeekdayIterator::new().into_iter().collect::<Vec<_>>(),
+            WeekdayIterator::new().collect::<Vec<_>>(),
             vec![
                 Weekday::Mon,
                 Weekday::Tue,
@@ -124,7 +124,7 @@ mod tests {
         );
 
         assert_eq!(
-            WeekdayIterator::new().into_iter().rev().collect::<Vec<_>>(),
+            WeekdayIterator::new().rev().collect::<Vec<_>>(),
             vec![
                 Weekday::Sun,
                 Weekday::Sat,
@@ -155,9 +155,7 @@ mod tests {
     #[test]
     fn test_weekday_from_sunday_iterator() {
         assert_eq!(
-            WeekdayFromSundayIterator::new()
-                .into_iter()
-                .collect::<Vec<_>>(),
+            WeekdayFromSundayIterator::new().collect::<Vec<_>>(),
             vec![
                 Weekday::Sun,
                 Weekday::Mon,
@@ -170,10 +168,7 @@ mod tests {
         );
 
         assert_eq!(
-            WeekdayFromSundayIterator::new()
-                .into_iter()
-                .rev()
-                .collect::<Vec<_>>(),
+            WeekdayFromSundayIterator::new().rev().collect::<Vec<_>>(),
             vec![
                 Weekday::Sat,
                 Weekday::Fri,

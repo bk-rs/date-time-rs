@@ -1,5 +1,5 @@
 use chrono::{
-    Date, DateTime, Datelike as _, NaiveDate, NaiveDateTime, TimeZone, Weekday as ChronoWeekday,
+    DateTime, Datelike as _, NaiveDate, NaiveDateTime, TimeZone, Weekday as ChronoWeekday,
 };
 
 use crate::Weekday;
@@ -35,11 +35,6 @@ impl From<NaiveDate> for Weekday {
 impl From<NaiveDateTime> for Weekday {
     fn from(dt: NaiveDateTime) -> Self {
         Self::from(dt.weekday())
-    }
-}
-impl<Tz: TimeZone> From<Date<Tz>> for Weekday {
-    fn from(d: Date<Tz>) -> Self {
-        Self::from(d.weekday())
     }
 }
 impl<Tz: TimeZone> From<DateTime<Tz>> for Weekday {
@@ -83,7 +78,7 @@ mod tests {
                 "2021-08-01T00:00:00Z"
                     .parse::<DateTime<Utc>>()
                     .unwrap()
-                    .date()
+                    .date_naive()
             ),
             Weekday::Sun
         );

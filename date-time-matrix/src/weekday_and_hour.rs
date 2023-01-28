@@ -107,7 +107,7 @@ mod tests {
 
     #[test]
     fn test_iter() {
-        assert_eq!(WeekdayAndHourIterator::new().into_iter().count(), 7 * 24);
+        assert_eq!(WeekdayAndHourIterator::new().count(), 7 * 24);
 
         assert_eq!(
             WeekdayAndHourIterator::new().next(),
@@ -117,10 +117,7 @@ mod tests {
 
     #[test]
     fn test_from_sunday_iter() {
-        assert_eq!(
-            WeekdayFromSundayAndHourIterator::new().into_iter().count(),
-            7 * 24
-        );
+        assert_eq!(WeekdayFromSundayAndHourIterator::new().count(), 7 * 24);
 
         assert_eq!(
             WeekdayFromSundayAndHourIterator::new().next(),

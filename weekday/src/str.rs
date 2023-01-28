@@ -50,14 +50,14 @@ impl Weekday {
     pub fn from_en_str(s: &str) -> Result<Self, &'static str> {
         if let Some(i) = EN_ABBREVIATIONS
             .iter()
-            .position(|x| x == &s || format!("{}.", x) == s)
+            .position(|x| x == &s || format!("{x}.") == s)
         {
             Ok(WEEKDAYS[i].to_owned())
         } else if let Some(i) = EN_NAMES.iter().position(|x| x == &s) {
             Ok(WEEKDAYS[i].to_owned())
         } else if let Some(i) = EN_MINIMAL_ABBREVIATIONS
             .iter()
-            .position(|x| x == &s || format!("{}.", x) == s)
+            .position(|x| x == &s || format!("{x}.") == s)
         {
             Ok(WEEKDAYS[i].to_owned())
         } else {

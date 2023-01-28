@@ -56,7 +56,7 @@ impl Month {
                 || if x == &"May" {
                     false
                 } else {
-                    format!("{}.", x) == s
+                    format!("{x}.") == s
                 }
         }) {
             Ok(MONTHS[i].to_owned())
