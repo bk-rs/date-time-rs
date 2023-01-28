@@ -25,10 +25,10 @@ with-serde = [ "serde" ]
 [dependencies]
 chrono = { version = "0.4", default-features = false, optional = true }
 num-traits = { version = "0.2", default-features = false, optional = true }
-serde = { version = "1.0", default-features = false, features = ["derive"], optional = true }
+serde = { version = "1", default-features = false, features = ["derive"], optional = true }
 
 [dev-dependencies]
-serde_json = { version = "1.0" }
+serde_json = { version = "1" }
 
 [package.metadata.cargo-all-features]
 skip_optional_dependencies = true
