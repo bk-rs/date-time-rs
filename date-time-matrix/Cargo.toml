@@ -1,6 +1,6 @@
 [package]
 name = "date-time-matrix"
-version = "0.1.3"
+version = "0.1.4"
 authors = ["vkill <vkill.net@gmail.com>"]
 edition = "2021"
 description = "Date Time Matrix"
@@ -21,7 +21,7 @@ default = [ "with-chrono" ]
 with-chrono = [ "chrono", "weekday/with-chrono", "hour/with-chrono" ]
 
 [dependencies]
-weekday = { version = "0.2", default-features = false, path = "../weekday" }
+weekday = { version = "0.3", default-features = false, path = "../weekday" }
 hour = { version = "0.1", default-features = false, path = "../hour" }
 
 chrono = { version = "0.4", default-features = false, optional = true }
